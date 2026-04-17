@@ -1,0 +1,14 @@
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = []  # pair: [temp, index]
+
+        for i, t in enumerate(temperatures):
+            while stack and t > stack[-1][0]:
+                # stackT is not used here, but we just have a variable for it anyway since we store a tuple
+                stackT, stackInd = stack.pop()
+                res[stackInd] = i - stackInd
+            # append a tuple for (temp, index)
+            stack.append((t, i))
+            
+        return res

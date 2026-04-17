@@ -1,0 +1,26 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # A dummy is used to have the indexing be correct when right becomes null.
+        dummy = ListNode(0, head)
+        left = dummy
+        right = head
+        
+        # Make the right pointer be n steps ahead of the left pointer before we move both at the same time. 
+        while n > 0 and right:
+            right = right.next
+            n -= 1
+
+        # Start moving both at the same time. 
+        while right:
+            left = left.next
+            right = right.next
+
+        left.next = left.next.next
+        
+        return dummy.next
